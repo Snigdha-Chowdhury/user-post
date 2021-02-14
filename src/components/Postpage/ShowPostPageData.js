@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import "./ShowPostPageData.css"
+import "./ShowPostPageData.css";
 
 function ShowPostPageData(props) {
   return (
@@ -8,7 +8,12 @@ function ShowPostPageData(props) {
       <span>{props.post.id}</span>
       <span>{props.post.title}</span>
       <span>
-        <Link to={`/postId/${props.post.id}`}>Post Details</Link>
+        <Link
+          to={`/postId/${props.post.id}`}
+          className="homepage__display__link"
+        >
+          <i class="fa fa-external-link" aria-hidden="true"></i>
+        </Link>
       </span>
     </div>
   );

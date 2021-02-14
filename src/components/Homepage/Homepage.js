@@ -13,16 +13,39 @@ export class Homepage extends Component {
   }
   componentDidMount() {
     const API_URL = "https://jsonplaceholder.typicode.com/users";
-    axios.get(API_URL).then((response) => {
-      console.log(response);
-      const data = response.data;
-      this.setState({ users: data });
-    });
+    axios
+      .get(API_URL)
+      .then((response) => {
+        console.log(response);
+        const data = response.data;
+        this.setState({ users: data });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   }
 
-  handleChange = (event) => {
+  // handleChange = (event) => {
+
+  //   this.setState({ filter: event.target.value });
+  // };
+
+  betterChange = this.debounce((event) => {
+    console.log("Debouncing", event);
     this.setState({ filter: event.target.value });
-  };
+  }, 300);
+
+  debounce(fn, d) {
+    let timer;
+    return function () {
+      let context = this,
+        args = arguments;
+      clearTimeout(timer);
+      timer = setTimeout(() => {
+        fn.apply(context, args);
+      }, d);
+    };
+  }
 
   render() {
     const { filter, users } = this.state;
@@ -37,20 +60,22 @@ export class Homepage extends Component {
     });
     return (
       <div className="homepage">
+        <div className="homepage__heading">Home Page</div>
         <div className="homepage__filter">
           <div className="homepage__filter__search">
             <input
               className="homepage__filter__search__input"
-              value={filter}
-              onChange={this.handleChange}
+              // value={filter}
+              onChange={this.betterChange}
+              placeholder="Search by Name, Company Name..."
             />
           </div>
         </div>
         <div className="homepage__show">
           <span className="homepage__display__headings">
-            <span>
+            {/* <span>
               <strong>S.no</strong>
-            </span>
+            </span> */}
             <span>
               <strong>Name</strong>
             </span>
