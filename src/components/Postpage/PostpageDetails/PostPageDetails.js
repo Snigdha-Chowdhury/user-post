@@ -50,7 +50,10 @@ export class PostPageDetails extends Component {
       .then((response) => {
         toast("Successfully Deleted");
         console.log(response);
-        this.setState({ deleted: true });
+        setTimeout(() => {
+          this.setState({ deleted: true });
+        }, 600);
+        
       })
       .catch((error) => {
         console.log(error);
@@ -59,6 +62,7 @@ export class PostPageDetails extends Component {
   render() {
     if (this.state.deleted === true) {
       // alert("Succesfully Deleted")
+      // toast("Successfully Deleted");
       return <Redirect to={`/post/${this.props.match.params.postId}`} />;
     }
 
